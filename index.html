@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campanha Romântica - Weightlifting Fairy Kim Bok Joo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #fcefee 0%, #e1f0ff 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: floaty 10s infinite ease-in-out alternate;
+      filter: drop-shadow(0 0 4px rgba(0,0,0,0.05));
+      z-index: 0;
+    }
+    body::before {
+      width: 400px;
+      height: 400px;
+      background: #ffc6d3;
+      top: 10%;
+      left: -20%;
+      animation-delay: 0s;
+    }
+    body::after {
+      width: 350px;
+      height: 350px;
+      background: #a6d8ff;
+      bottom: 5%;
+      right: -20%;
+      animation-delay: 5s;
+    }
+    @keyframes floaty {
+      0% { transform: translateY(0) translateX(0); }
+      100% { transform: translateY(-30px) translateX(20px); }
+    }
+
+    .heart-container {
+      position: relative;
+      width: 220px;
+      height: 200px;
+      cursor: pointer;
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15));
+      transition: filter 0.4s ease;
+    }
+    .heart-container:hover {
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.3));
+    }
+
+    .heart {
+      position: relative;
+      width: 110px;
+      height: 100px;
+      background-color: #ff8fb1;
+      transform: rotate(-45deg);
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 7px 20px rgba(255, 143, 177, 0.7);
+      border-radius: 0 50% 50% 50%;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 110px;
+      height: 100px;
+      background-color: #ff8fb1;
+      border-radius: 50%;
+      box-shadow: 0 7px 20px rgba(255, 143, 177, 0.7);
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .heart::before {
+      top: 0;
+      left: 55px;
+    }
+    .heart::after {
+      top: -55px;
+      left: 0;
+    }
+
+    .message {
+      position: absolute;
+      color: #fff;
+      font-size:2rem;
+      font-weight: 800;
+      user-select: none;
+      pointer-events: none;
+      text-shadow:
+        0 0 6px rgba(255,255,255,0.85),
+        0 0 20px rgba(255,255,255,0.4);
+      opacity: 0;
+      transition: opacity 0.6s ease 0.2s;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      /* Aqui está a alteração para subir o texto 20px */
+      transform: translate(-50%, calc(-50% - 20px)) rotate(45deg);
+      width: 140px;
+      line-height: 1;
+      font-family: 'Fredoka One', cursive;
+    }
+
+    .heart-container.clicked .heart,
+    .heart-container.clicked .heart::before,
+    .heart-container.clicked .heart::after {
+      background-color: #f36b91;
+      box-shadow: 0 10px 30px rgba(243, 107, 145, 0.85);
+    }
+
+    .heart-container.clicked .message {
+      opacity: 1;
+    }
+
+    .heart-container:hover .heart,
+    .heart-container.clicked .heart {
+      animation: heartbeat 1.3s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: rotate(-45deg) scale(1);
+      }
+      50% {
+        transform: rotate(-45deg) scale(1.12);
+      }
+    }
+
+    .dumbbell {
+      position: absolute;
+      top: 20px;
+      width: 26px;
+      height: 26px;
+      background: #ff92a4;
+      border-radius: 6px;
+      box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.6),
+        0 3px 8px rgba(255,146,164,0.5);
+      transition: background 0.3s ease;
+    }
+    .dumbbell::before,
+    .dumbbell::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 26px;
+      background: #ff92a4;
+      border-radius: 3px;
+      top: 0;
+      box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.6);
+      transition: background 0.3s ease;
+    }
+    .dumbbell::before {
+      left: -12px;
+    }
+    .dumbbell::after {
+      right: -12px;
+    }
+
+    .dumbbell.left {
+      left: -50px;
+      transform: rotate(15deg);
+    }
+    .dumbbell.right {
+      right: -50px;
+      transform: rotate(-15deg);
+    }
+
+    .heart-container.clicked .dumbbell {
+      background: #f36b91;
+      box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.8),
+        0 5px 15px rgba(243, 107, 145, 0.8);
+    }
+    .heart-container.clicked .dumbbell::before,
+    .heart-container.clicked .dumbbell::after {
+      background: #f36b91;
+      box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="heart-container" id="heartContainer" tabindex="0" role="button" aria-label="Coração romântico clicável">
+    <div class="dumbbell left" aria-hidden="true"></div>
+    <div class="heart"></div>
+    <div class="dumbbell right" aria-hidden="true"></div>
+    <div class="message">testee</div>
+  </div>
+
+  <script>
+    const heartContainer = document.getElementById('heartContainer');
+
+    function toggleMessage() {
+      heartContainer.classList.toggle('clicked');
+    }
+
+    heartContainer.addEventListener('click', toggleMessage);
+
+    heartContainer.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMessage();
+      }
+    });
+  </script>
+</body>
+</html>
